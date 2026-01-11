@@ -1,5 +1,13 @@
 // API Configuration
-const API_BASE = 'http://localhost:5000/api';
+let API_BASE = 'http://localhost:5000/api';
+
+// Detect if on mobile and adjust API endpoint
+if (window.location.hostname !== 'localhost' && window.location.hostname !== '127.0.0.1') {
+    // If not on localhost, check if Railway backend is available
+    if (window.location.hostname.includes('railway') || window.location.hostname.includes('mobile')) {
+        API_BASE = 'https://web-production-6a3d.up.railway.app/api';
+    }
+}
 
 // Global state
 let currentPlayerName = '';
