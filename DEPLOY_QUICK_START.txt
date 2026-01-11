@@ -1,0 +1,60 @@
+📱 DEPLOY YOUR QUIZ GAME - QUICK GUIDE
+
+=== STEP 1: Install Git ===
+Download from: https://git-scm.com/download/win
+Install it (keep clicking Next)
+
+=== STEP 2: Create GitHub Account ===
+Go to: https://github.com
+Sign up for free
+
+=== STEP 3: Create Repository ===
+1. Go to: https://github.com/new
+2. Repository name: quiz-game
+3. Click "Create repository"
+
+=== STEP 4: Push Your Code ===
+Open PowerShell in this folder and run:
+
+git config --global user.name "Your Name"
+git config --global user.email "your@email.com"
+git init
+git add .
+git commit -m "Initial commit"
+git branch -M main
+git remote add origin https://github.com/YOUR_USERNAME/quiz-game.git
+git push -u origin main
+
+Replace YOUR_USERNAME with your GitHub username!
+
+=== STEP 5: Deploy on Railway ===
+1. Go to: https://railway.app
+2. Click "Login with GitHub"
+3. Click "Create New Project"
+4. Select "Deploy from GitHub"
+5. Select your quiz-game repository
+6. Wait for it to deploy (2-3 minutes)
+
+=== STEP 6: Get Your Live URL ===
+After deployment, Railway will show you a URL like:
+quiz-game-production.up.railway.app
+
+=== STEP 7: Update Your Game ===
+Edit script.js and change:
+const API_BASE = 'https://YOUR-RAILWAY-URL.up.railway.app/api';
+
+Then push:
+git add .
+git commit -m "Update API URL"
+git push
+
+=== DONE! ===
+Your game is now live at:
+https://YOUR-RAILWAY-URL.up.railway.app
+
+Share this link with friends! 🎮
+
+---
+
+NEED HELP?
+Read GITHUB_RAILWAY_SETUP.md for detailed instructions

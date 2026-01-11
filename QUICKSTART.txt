@@ -1,0 +1,99 @@
+📱 QUICK START GUIDE - MULTIPLAYER QUIZ GAME
+
+STEP 1: Install Node.js
+━━━━━━━━━━━━━━━━━━━━━
+Download from: https://nodejs.org/
+Install the LTS version (recommended)
+
+STEP 2: Open PowerShell in the Game Folder
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+• Right-click in: c:\Users\pc\OneDrive\Desktop\Final Game
+• Select "Open PowerShell here"
+
+STEP 3: Install Dependencies
+━━━━━━━━━━━━━━━━━━━━━━━━
+Run this command:
+npm install
+
+STEP 4: Start the Backend Server
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+Run this command:
+npm start
+
+You should see:
+✓ 🎮 Quiz Game Backend running on http://localhost:5000/api
+
+⚠️  KEEP THIS WINDOW OPEN - the backend must stay running!
+
+STEP 5: Open the Game in Your Browser
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+Open this file in your browser:
+c:\Users\pc\OneDrive\Desktop\Final Game\index.html
+
+STEP 6: Enter Your Name
+━━━━━━━━━━━━━━━━━━━
+• Type your name
+• Click "Continue"
+• You'll see your Session ID
+
+STEP 7: Share the Session ID with Friends
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+• Give them your Session ID
+• They can use "Join Session" to play with you
+
+STEP 8: Wait for 3+ Players and Start!
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+• When 3+ players join, "Start Game" button activates
+• Click to begin the quiz
+
+HOW TO PLAY
+━━━━━━━━━━
+1. Players see the same questions
+2. Each player answers True/False
+3. Get points for correct answers
+4. View leaderboard when done
+5. Play again or check global stats
+
+TROUBLESHOOTING
+━━━━━━━━━━━━━
+❌ "Could not connect to server"
+   → Make sure "npm start" is running in PowerShell
+
+❌ Players not appearing
+   → Make sure they're using the same Session ID
+   → Check browser console for errors (F12)
+
+❌ Backend won't start
+   → Check: node --version (should show v14+)
+   → Try: npm install again
+
+FEATURES
+━━━━━━━
+✓ Multiplayer (3+ players per game)
+✓ Custom player names
+✓ Real-time player list
+✓ Session-based matching
+✓ Score tracking
+✓ Global leaderboard
+✓ Player statistics
+
+FOLDER STRUCTURE
+━━━━━━━━━━━━━
+Final Game/
+  ├── index.html         ← Open this in browser
+  ├── script.js          ← Game logic (updated)
+  ├── style.css          ← Styling
+  ├── package.json       ← Dependencies
+  ├── README.md          ← Full documentation
+  ├── QUICKSTART.txt     ← This file
+  └── backend/
+      ├── server.js      ← Backend server (run with npm start)
+      └── db.js          ← Data storage
+
+NEXT STEPS
+━━━━━━━━
+1. Make sure backend is running
+2. Share the game link and Session ID with friends
+3. Enjoy playing together! 🎮
+
+Need help? Check README.md for detailed documentation.

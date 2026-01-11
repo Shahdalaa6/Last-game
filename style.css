@@ -1,0 +1,77 @@
+* { box-sizing: border-box; }
+body {
+    margin: 0;
+    font-family: system-ui, Arial, sans-serif;
+    background: linear-gradient(135deg, #ff7e5f, #feb47b);
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: white;
+}
+.screen { display: none; width: 95%; max-width: 400px; text-align: center; padding: 20px; }
+.screen.active { display: block; }
+
+input { width: 100%; padding: 14px; font-size: 16px; margin: 10px 0; border-radius: 8px; border: none; }
+
+button { width: 100%; padding: 14px; font-size: 16px; border-radius: 8px; border: none; margin-top: 10px; cursor: pointer; }
+button:disabled { background-color: #ccc; color: #666; cursor: not-allowed; }
+
+#continueBtn { margin-top: 5px; }
+
+#gameScreen { background: white; color: #333; border-radius: 14px; padding: 25px; box-shadow: 0 8px 20px rgba(0,0,0,0.2); }
+
+.choice { width: 100%; padding: 16px; margin: 8px 0; border-radius: 10px; background-color: #f0f0f0; cursor: pointer; transition: all 0.3s; border: none; font-size: 16px; }
+.choice.correct { background-color: #4CAF50; color: white; }
+.choice.wrong { background-color: #f44336; color: white; }
+
+#feedback { margin-top: 15px; font-weight: bold; font-size: 16px; }
+
+#leaderboardScreen ul { list-style: none; padding: 0; }
+#leaderboardScreen li { background: rgba(255,255,255,0.2); padding: 10px; margin: 6px 0; border-radius: 6px; color: #fff; font-weight: bold; font-size: 16px; }
+
+#nextBtn { display: none; background-color: #667eea; color: white; }
+
+#progressContainer { width: 100%; background-color: #ddd; border-radius: 8px; margin-bottom: 15px; height: 12px; }
+#progressBar { height: 12px; width: 0%; background-color: #4CAF50; border-radius: 8px; transition: width 0.3s; }
+
+@media(max-width:600px){ .screen{padding:15px;} .choice{font-size:15px;padding:14px;} button{font-size:15px;padding:14px;} }
+#leaderboardList {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.leader-card {
+    background: white;
+    color: #333;
+    padding: 14px;
+    border-radius: 12px;
+    box-shadow: 0 6px 12px rgba(0,0,0,0.15);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    animation: popIn 0.4s ease;
+}
+
+.leader-card.gold { border-left: 6px solid #FFD700; }
+.leader-card.silver { border-left: 6px solid #C0C0C0; }
+.leader-card.bronze { border-left: 6px solid #CD7F32; }
+
+.score-bar {
+    height: 8px;
+    background: #eee;
+    border-radius: 6px;
+    margin-top: 6px;
+    overflow: hidden;
+}
+
+.score-fill {
+    height: 100%;
+    background: linear-gradient(90deg, #667eea, #764ba2);
+}
+
+@keyframes popIn {
+    from { transform: scale(0.95); opacity: 0; }
+    to { transform: scale(1); opacity: 1; }
+}
