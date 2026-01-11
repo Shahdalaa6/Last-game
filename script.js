@@ -67,8 +67,36 @@ async function joinGame(){
         pollPlayers();
     } catch (error) {
         console.error('Error joining game:', error);
-        alert('Could not connect to server. Make sure it is running on localhost:5000');
+        // Allow offline play - load questions locally
+        console.log('Playing offline mode');
+        scores[currentPlayerName] = 0;
+        players = [currentPlayerName];
+        
+        // Use embedded questions
+        initializeQuestions();
+        
+        // Show intro screen
+        document.getElementById("displayName").innerText = currentPlayerName;
+        showScreen("introScreen");
     }
+}
+
+// Initialize questions locally
+function initializeQuestions(){
+    questions = [
+        { text: "Coffee was discovered by accident.", correct: true },
+        { text: "The human brain stops developing at age 18.", correct: false },
+        { text: "Drinking water can improve concentration.", correct: true },
+        { text: "Multitasking increases productivity.", correct: false },
+        { text: "Bananas are berries.", correct: true },
+        { text: "Goldfish have a memory of only three seconds.", correct: false },
+        { text: "The Great Wall of China is visible from space.", correct: false },
+        { text: "Octopuses have three hearts.", correct: true },
+        { text: "Sharks existed before trees.", correct: true },
+        { text: "Adults have more bones than babies.", correct: false },
+        { text: "An ostrich's eye is bigger than its brain.", correct: true },
+        { text: "A day on Venus is longer than a year on Venus.", correct: true }
+    ];
 }
 
 // Load questions from backend
@@ -78,6 +106,8 @@ async function loadQuestions(){
         questions = await response.json();
     } catch (error) {
         console.error('Error loading questions:', error);
+        // Fall back to local questions
+        initializeQuestions();
     }
 }
 
@@ -99,7 +129,11 @@ function pollPlayers(){
                 continueBtn.innerText = `Start Game (${data.playerCount} players ready)`;
             }
         } catch (error) {
-            console.error('Error polling players:', error);
+            console.warn('Polling failed, offline mode:', error);
+            // In offline mode, allow starting with just 1 player
+            const continueBtn = document.getElementById("continueBtn");
+            continueBtn.disabled = false;
+            continueBtn.innerText = `Start Game (Offline Mode)`;
         }
     }, 1000);
 }
