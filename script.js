@@ -1,5 +1,5 @@
 // API Configuration
-const API_BASE = 'https://web-production-6a3d.up.railway.app/api';
+const API_BASE = 'http://localhost:5000/api';
 
 // Global state
 let currentPlayerName = '';
