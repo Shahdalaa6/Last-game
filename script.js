@@ -159,7 +159,26 @@ async function selectAnswer(answer) {
     // Disable both buttons so only one can be selected
     buttons.forEach(btn => btn.disabled = true);
 
-    // Submit answer to backend
+    // Calculate if answer is correct locally first
+    const isCorrect = answer === correctAnswer;
+    
+    // Update UI immediately (don't wait for backend)
+    if (isCorrect) {
+        if (answer === true) buttons[0].classList.add("correct");
+        else buttons[1].classList.add("correct");
+        scores[currentPlayerName] = (scores[currentPlayerName] || 0) + 1;
+    } else {
+        if (answer === true) buttons[0].classList.add("wrong");
+        else buttons[1].classList.add("wrong");
+        if (correctAnswer === true) buttons[0].classList.add("correct");
+        else buttons[1].classList.add("correct");
+    }
+
+    // Show feedback text
+    document.getElementById("feedback").innerText = isCorrect ? "Correct!" : "Wrong!";
+    document.getElementById("nextBtn").style.display = "block";
+
+    // Try to sync with backend (but don't block if it fails)
     try {
         const response = await fetch(`${API_BASE}/answer`, {
             method: 'POST',
@@ -169,30 +188,15 @@ async function selectAnswer(answer) {
                 answer 
             })
         });
-        const data = await response.json();
-
-        // Color only the chosen button and the correct one
-        if (data.isCorrect) {
-            // Player selected the correct answer
-            if (answer === true) buttons[0].classList.add("correct");
-            else buttons[1].classList.add("correct");
-            scores[currentPlayerName] = (scores[currentPlayerName] || 0) + 1;
-        } else {
-            // Player selected the wrong answer
-            if (answer === true) buttons[0].classList.add("wrong");
-            else buttons[1].classList.add("wrong");
-
-            // Also highlight the correct answer in green
-            if (data.correctAnswer === true) buttons[0].classList.add("correct");
-            else buttons[1].classList.add("correct");
+        if (response.ok) {
+            const data = await response.json();
+            console.log('Answer synced with backend');
         }
-
-        // Show feedback text
-        document.getElementById("feedback").innerText = data.feedback;
-        document.getElementById("nextBtn").style.display = "block";
     } catch (error) {
-        console.error('Error submitting answer:', error);
-        alert('Error submitting answer');
+        console.warn('Backend sync failed, continuing offline:', error);
+        // Game continues even if backend fails
+    }
+}
     }
 }
 
@@ -200,20 +204,25 @@ async function selectAnswer(answer) {
 async function nextQuestion(){
     currentQuestion++;
     
+    // Check if game is finished (local calculation)
+    if (currentQuestion >= questions.length) {
+        showLeaderboard();
+        return;
+    }
+    
+    loadQuestion();
+    
+    // Try to sync with backend but don't block
     try {
         const response = await fetch(`${API_BASE}/next-question`, {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' }
         });
-        const data = await response.json();
-
-        if(data.finished){
-            showLeaderboard();
-        } else {
-            loadQuestion();
+        if (response.ok) {
+            console.log('Progress synced with backend');
         }
     } catch (error) {
-        console.error('Error moving to next question:', error);
+        console.warn('Backend sync failed, continuing offline:', error);
     }
 }
 
